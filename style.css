@@ -34,30 +34,30 @@ h1, h2, h3, h4 {
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 2em;
 }
 
 h2 {
-  font-size: 2.4rem;
+  font-size: 2.4em;
 }
 
 h3 {
-  font-size: 1.87rem;
+  font-size: 1.87em;
 }
 
 h4 {
-  font-size: 1.6rem;
+  font-size: 1.6em;
 }
 
 p {
-  font-size: 1.6rem;
+  font-size: 1.6em;
   font-weight: 400;
   margin-bottom: .6em;
 }
 
 a {
   text-decoration: none;
-  font-size: 1.6rem;
+  font-size: 1.6em;
   color: var(--TEXT-COLOR);
   font-weight: 300;
   line-height: 1;
@@ -69,7 +69,7 @@ img {
 }
 
 button {
-  font-size: 1.6rem;
+  font-size: 1.6em;
   font-family: inherit;
   outline: none;
   border: none; 
@@ -84,10 +84,15 @@ button {
 }
 
 .tie {
+  transition: .5s ease;
   z-index: 1;
   position: absolute;
   top: 0;
   min-width: 90px;
+}
+
+.tie.scollup {
+  transform: translateY(-25px);
 }
 
 .tie-side {  
@@ -95,8 +100,8 @@ button {
   height: 0;
   border-left: 5em solid var(--TERNARY-COLOR);
   border-right: 5em solid var(--TERNARY-COLOR);
-  border-top: 25px solid var(--TERNARY-COLOR);
-  border-bottom: 30px solid transparent;
+  border-top: 2.5em solid var(--TERNARY-COLOR);
+  border-bottom: 3em solid transparent;
 }
 
 .pharagraph-header {
@@ -105,9 +110,31 @@ button {
   color: var(--WHITE-COLOR);
 }
 
+.overlay-viewport {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+  position: fixed;
+  background-color: rgba(0,0,0,0.4);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.overlay-viewport.show {
+  display: flex;
+}
+
 /* || Header */
 .header__navbar {
-  padding-block: 1.2em;
+  z-index: 50;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: var(--BLACK-COLOR);
+  padding-block: 2em;
 }
 
 .header__navbar > .container {
@@ -118,7 +145,7 @@ button {
 
 .header__brand-mobile {
   display: block;
-  font-size: 2.4rem;
+  font-size: 2.4em;
   margin-bottom: 0;
 }
 
@@ -126,7 +153,7 @@ button {
   display: flex;
   align-items: center;
   color: var(--WHITE-COLOR);
-  font-size: 3rem;
+  font-size: 3em;
 }
 
 .header__navigation {
@@ -146,11 +173,17 @@ button {
 .header__navigation-item:nth-child(4) {
   position: relative;
   padding-block: 0;
-  min-width: 90px;
+  min-width: 9rem;
 }
 
-.header__navigation-item > a:hover {
+.header__navigation-item:not(:last-child) > a:hover {
   color: var(--TERNARY-COLOR);
+}
+
+.profile-link {
+  background-color: var(--TERNARY-COLOR);
+  padding: .3em .9em;
+  border-radius: .3em;
 }
 
 .header__navigation-brand {
@@ -165,7 +198,7 @@ button {
 }
 
 .header__navigation-brand > .icon {
-  font-size: 2.8rem;
+  font-size: 2.8em;
 }
 
 .header__navigation-brand > p {
@@ -182,6 +215,7 @@ button {
   width: 40%;
   height: 100vh;
   background-color: var(--BLACK-COLOR);
+  padding: 2em;
 }
 
 .header__navigation-mobile.show {
@@ -190,24 +224,76 @@ button {
 
 .header__navigation-mobile ul {
   list-style: none;
-  padding-top: 3rem;
-  padding-right: 2rem;
+  padding-top: 3em;
 }
 
 .header__navigation-mobile li {
   text-align: right;
-  padding-block: 1.6rem;
+  padding-block: 1.6em;
 } 
 
 .header__navigation-mobile a {
   font-size: 2.2em;
 }
 
+/* || Profile */
+.profile {
+  animation: pop-show .5s ease forwards;
+  background-color: var(--BLACK-COLOR);
+  position: fixed;
+  max-width: 40rem;
+  padding: 1.6em;
+  border-radius: .4em;
+  margin-inline: 1.6em;
+}
+
+.profile__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 2em;
+  margin-bottom: .8em;
+}
+
+.profile__header > p {
+  margin-bottom: 0;
+}
+
+.profile__header > .icon {
+  font-size: 1.6em;
+  cursor: pointer;
+}
+
+.profile__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile__bio {
+  margin-top: 3em;
+  line-height: 1.4;
+}
+
+.profile__bio > h2 {
+  font-size: clamp(3em, 4.5vw, 4em);
+  margin: 0;
+  margin-bottom: .3em;
+}
+
+.profile__bio > p {
+  font-size: clamp(1.6em, 2.5vw, 1.8em);
+}
+
+.profile__signature {
+  height: clamp(5em, 6.5vw, 6em);
+}
+
 /* || Hero */
 .header__hero {
+  margin-top: 6.8em;
   display: grid;
   place-content: center;
-  min-height: 80vh;
+  min-height: calc(100vh - 6.8em);
   background: linear-gradient(
     rgba(0, 0, 0, 0.6), 
     rgba(0, 0, 0, 0.6)
@@ -228,17 +314,17 @@ button {
 }
 
 .header__hero-text > h3 {
-  font-size: 3em;
+  font-size: clamp(2em, 10vw, 4em);
   color: var(--WHITE-COLOR);
 }
 
 .header__hero-text > h2 {
-  font-size: 5em;
+  font-size: clamp(4em, 16vw, 6em);
   color: var(--WHITE-COLOR);
 }
 
 .header__hero-text > p { 
-  font-size: 2.5em;
+  font-size: clamp(1.6em, 8vw, 3em);
   border-bottom: 1px solid var(--TEXT-COLOR);
   margin-bottom: .4em;
 }
@@ -246,7 +332,7 @@ button {
 .header__hero-text > .icon {
   display: flex;
   align-items: center;
-  font-size: 2.8em;
+  font-size: clamp(1.6em, 8vw, 3em);
 }
 
 /* || Gallery */
@@ -256,12 +342,12 @@ button {
 
 .gallery__item {
   flex: 1;
-  min-width: 300px;
-  max-width: 380px;
+  min-width: 30rem;
+  max-width: 38rem;
 }
 
 .gallery__item img {
-  max-height: 250px;
+  max-height: 25rem;
   width: 100%;
   filter: brightness(90%);
   aspect-ratio: 1 / 1;
@@ -270,6 +356,10 @@ button {
 .gallery__item > h3 {
   margin-top: 1em;
   text-align: center;
+}
+
+.gallery__item > p {
+  margin-bottom: 0;
 }
 
 /* || About */
@@ -380,12 +470,14 @@ button {
 }
 
 .header__navigation-toggler--mobile {
-  padding-block: 1.2rem;
-  padding-right: 2rem;
   justify-content: flex-end;
 }
 
 @media screen and (min-width: 40em) {
+  .header__hero {
+    min-height: 80vh;
+  }
+  
   .container {
     padding-inline: 0;
     width: 75%;
@@ -411,6 +503,26 @@ button {
     display: flex;
     align-items: start;
     justify-content: center;
+  }
+
+  .profile {
+    max-width: 80rem;
+  }
+
+  .profile__container {
+    flex-direction: row;
+  }
+
+  .profile__image {
+    display: flex;
+    align-items: center;
+    flex-basis: 35%;
+  }
+
+  .profile__bio {
+    margin-top: 0;
+    padding-left: 1.8em;
+    flex-basis: 65%;
   }
 
   .container--gallery {
@@ -475,5 +587,19 @@ button {
 
   100% {
     transform: translateX(0)
+  }
+}
+
+@keyframes pop-show {
+  0% {
+    transform: scale(0)
+  }
+
+  80% {
+    transform: scale(1.1)
+  }
+
+  100% {
+    transform: scale(1)
   }
 }
